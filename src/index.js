@@ -47,7 +47,7 @@ function showWeather(response) {
   temp.innerHTML = valueTemp +"ºC";
   let other=Math.round((response.data.main.feels_like));
   let feelsLike=document.querySelector("#tempDes");
-  feelsLike.innerHTML="RealFeel : "+other+" ºC";
+  feelsLike.innerHTML="RealFeel: "+other+" ºC";
   let cityInput = document.querySelector("#citySearch");
   cityInput.value=""
 }
