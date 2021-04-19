@@ -15,7 +15,7 @@ if (minutes < 10) {
   minutes = "0" + minutes;
 }
 let hour = now.getHours();
-let data = document.querySelector("p#dataDes");
+let data = document.querySelector("#dataDes");
 data.innerHTML = `${dayW}  ${hour}:${minutes}`;
 
 
@@ -72,5 +72,5 @@ function getCurrentLocalWeather() {
 let searchCity = document.querySelector("#formSearch");
 searchCity.addEventListener("submit", search);
 
-let currentL=document.querySelector("#curent");
-currentL.addEventListener("click",getCurrentLocalWeather);
+// let currentL=document.querySelector("#curent");
+// currentL.addEventListener("click",getCurrentLocalWeather);
