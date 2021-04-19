@@ -37,11 +37,18 @@ function showWeather(response) {
   let valueHum = Math.round(response.data.main.humidity);
   let valueCity = (response.data.name);
   let valueDescription=response.data.weather[0].description;
+  console.log(valueDescription);
   // let valuerealFeel=Math.round((response.data.main.feels_like));
-  
+  let icon=document.querySelector("img.icon");
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  icon.setAttribute("alt", response.data.weather[0].description);
+
   let nameCity=document.querySelector("#cityS");
   nameCity.innerHTML=valueCity ;
-    let humidity=document.querySelector("#humidity")
+  let humidity=document.querySelector("#humidity")
   humidity.innerHTML="Humidity: "+ valueHum + " %";
   let wind=document.querySelector("#wind")
   wind.innerHTML="Wind: "+ valueWind + " Km/h";
