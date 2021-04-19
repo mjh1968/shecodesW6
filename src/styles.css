@@ -94,3 +94,17 @@ li {
   color: rgb(118, 113, 113);
   font-weight: bold;
 }
+a {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  padding-left: 0px;
+  vertical-align: top;
+  font-size: 12px;
+  margin-top: 12px;
+  color: rgb(113, 113, 113);
+}
+a:hover {
+  color: rgb(92, 225, 230);
+  text-decoration-line: rgb(113, 113, 113);
+}
