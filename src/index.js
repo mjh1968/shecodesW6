@@ -31,6 +31,7 @@ function search(event) {
 
 
 function showWeather(response) {
+  console.log(response)
   let valueTemp = Math.round(response.data.main.temp);
   let valueWind =Math.round(response.data.wind.speed * 3.6);
   let valueHum = Math.round(response.data.main.humidity);
@@ -72,9 +73,10 @@ function convert(event) {
   event.preventDefault();
   let displayT = document.querySelector("span#temperature.temp");
   if (event.target.innerHTML === "ºC") {
-    displayT.innerHTML = Math.trunc((displayT.innerHTML - 32) / 1.8);
+    displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);
+    
   } else {
-    displayT.innerHTML = Math.trunc(displayT.innerHTML * 1.8 + 32);
+    displayT.innerHTML = Math.round(displayT.innerHTML * 1.8 + 32);
   }
 }
 let elementF = document.querySelector("#typeF");
