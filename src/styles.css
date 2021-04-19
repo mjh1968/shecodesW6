@@ -1,15 +1,7 @@
 .body {
   font-family: "Roboto", sans-serif;
 }
-.appW {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid;
-  border-width: 1px;
-  border-style: outset;
-  border-radius: 3px;
-}
+
 .formSearch {
   display: block;
   margin: 0 auto;
@@ -64,9 +56,10 @@
 h1 {
   color: rgb(92, 225, 230);
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 0;
 }
+
 ul {
   margin: 0;
   padding: 0;
@@ -88,11 +81,15 @@ li {
   color: rgb(154, 154, 154);
   font-size: 16px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 .temp {
-  font-size: 20px;
+  display: inline-block;
+  line-height: 60px;
+  vertical-align: top;
+  font-size: 48px;
   color: rgb(118, 113, 113);
-  font-weight: bold;
+  font-weight: 400;
 }
 a {
   display: inline-block;
@@ -107,4 +104,23 @@ a {
 a:hover {
   color: rgb(92, 225, 230);
   text-decoration-line: rgb(113, 113, 113);
+}
+
+.icon {
+  margin-right: 15px;
+  height: 64px;
+  width: 64px;
+}
+
+.otherSpecs {
+  margin-top: 10px;
+}
+.appW {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid;
+  border-width: 1px;
+  border-style: outset;
+  border-radius: 3px;
 }
