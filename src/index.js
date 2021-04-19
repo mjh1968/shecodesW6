@@ -1,3 +1,8 @@
+document.getElementById("typeC").style.fontSize="20px";
+document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
+link = document.getElementById('typeC');
+link.setAttribute('class', 'disabled');
+
 let now = new Date();
 let weekDays = [
   "Sunday",
@@ -31,13 +36,11 @@ function search(event) {
 
 
 function showWeather(response) {
-  console.log(response)
   let valueTemp = Math.round(response.data.main.temp);
   let valueWind =Math.round(response.data.wind.speed * 3.6);
   let valueHum = Math.round(response.data.main.humidity);
   let valueCity = (response.data.name);
   let valueDescription=response.data.weather[0].description;
-  console.log(valueDescription);
   // let valuerealFeel=Math.round((response.data.main.feels_like));
   let icon=document.querySelector("img.icon");
   icon.setAttribute(
@@ -53,7 +56,7 @@ function showWeather(response) {
   let wind=document.querySelector("#wind")
   wind.innerHTML="Wind: "+ valueWind + " Km/h";
   let temp = document.querySelector("#temperature");
-  temp.innerHTML = valueTemp +"ºC";
+  temp.innerHTML = valueTemp ;
   let other=Math.round((response.data.main.feels_like));
   let tempDes=document.querySelector("#tempDes");
   tempDes.innerHTML=valueDescription;
@@ -82,21 +85,41 @@ function getCurrentLocalWeather() {
 function convert(event) {
   event.preventDefault();
   let displayT = document.querySelector("span#temperature.temp");
+   
   if (event.target.innerHTML === "ºC") {
-    displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);
-    
+  console.log("1   "+displayT.innerHTML);
+  document.getElementById("typeC").style.fontSize="20px";
+  document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
+  document.getElementById("typeF").style.fontSize="12px";
+  document.getElementById("typeF").style.color = "rgb(113, 113, 113)";
+  link = document.getElementById('typeC');
+  link.setAttribute('class', 'disabled');
+  link=document.querySelector("a#typeF").classList
+    link.remove("disabled")
+
+  displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
   } else {
+    console.log("2   "+displayT.innerHTML);
+    document.getElementById("typeF").style.fontSize="20px";
+    document.getElementById("typeF").style.color = "rgb(92, 225, 230)";
+    document.getElementById("typeC").style.fontSize="12px";
+    document.getElementById("typeC").style.color = "rgb(113, 113, 113)";
+    
+    link = document.getElementById('typeF');
+    link.setAttribute('class', 'disabled'); 
+    
+    link=document.querySelector("a#typeC").classList
+    link.remove("disabled")
+
+ 
     displayT.innerHTML = Math.round(displayT.innerHTML * 1.8 + 32);
   }
 }
+
 let elementF = document.querySelector("#typeF");
 elementF.addEventListener("click", convert);
 let elementC = document.querySelector("#typeC");
 elementC.addEventListener("click", convert);
-
-
-
-
 let searchCity = document.querySelector("#formSearch");
 searchCity.addEventListener("submit", search);
 

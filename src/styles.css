@@ -109,6 +109,10 @@ a:hover {
   text-decoration-line: rgb(113, 113, 113);
 }
 
+a.disabled {
+  pointer-events: none;
+}
+
 .icon {
   margin-right: 15px;
   height: 64px;
