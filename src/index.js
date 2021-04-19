@@ -17,19 +17,6 @@ if (minutes < 10) {
 let hour = now.getHours();
 let data = document.querySelector("#dataDes");
 data.innerHTML = `${dayW}  ${hour}:${minutes}`;
-function convert(event) {
-  event.preventDefault();
-  let displayT = document.querySelector("span#temperature.temp");
-  if (event.target.innerHTML === "ºC") {
-    displayT.innerHTML = Math.trunc((displayT.innerHTML - 32) / 1.8);
-  } else {
-    displayT.innerHTML = Math.trunc(displayT.innerHTML * 1.8 + 32);
-  }
-}
-let elementF = document.querySelector("#typeF");
-elementF.addEventListener("click", convert);
-let elementC = document.querySelector("#typeC");
-elementC.addEventListener("click", convert);
 
 function search(event) {
   event.preventDefault();
@@ -81,6 +68,19 @@ function getCurrentLocalWeather() {
   navigator.geolocation.getCurrentPosition(showLocal);
 }
 
+function convert(event) {
+  event.preventDefault();
+  let displayT = document.querySelector("span#temperature.temp");
+  if (event.target.innerHTML === "ºC") {
+    displayT.innerHTML = Math.trunc((displayT.innerHTML - 32) / 1.8);
+  } else {
+    displayT.innerHTML = Math.trunc(displayT.innerHTML * 1.8 + 32);
+  }
+}
+let elementF = document.querySelector("#typeF");
+elementF.addEventListener("click", convert);
+let elementC = document.querySelector("#typeC");
+elementC.addEventListener("click", convert);
 
 
 
