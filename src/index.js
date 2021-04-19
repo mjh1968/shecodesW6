@@ -36,18 +36,21 @@ function showWeather(response) {
   let valueWind =Math.round(response.data.wind.speed * 3.6);
   let valueHum = Math.round(response.data.main.humidity);
   let valueCity = (response.data.name);
+  let valueDescription=response.data.weather[0].description;
+  // let valuerealFeel=Math.round((response.data.main.feels_like));
+  
   let nameCity=document.querySelector("#cityS");
   nameCity.innerHTML=valueCity ;
-  
-  let humidity=document.querySelector("#humidity")
+    let humidity=document.querySelector("#humidity")
   humidity.innerHTML="Humidity: "+ valueHum + " %";
   let wind=document.querySelector("#wind")
   wind.innerHTML="Wind: "+ valueWind + " Km/h";
   let temp = document.querySelector("#temperature");
   temp.innerHTML = valueTemp +"ºC";
   let other=Math.round((response.data.main.feels_like));
-  let feelsLike=document.querySelector("#tempDes");
-  feelsLike.innerHTML="RealFeel: "+other+" ºC";
+  let tempDes=document.querySelector("#tempDes");
+  tempDes.innerHTML=valueDescription;
+  // feelsLike.innerHTML="RealFeel: "+other+" ºC";
   let cityInput = document.querySelector("#citySearch");
   cityInput.value=""
 }
