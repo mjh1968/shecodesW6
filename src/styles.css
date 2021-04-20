@@ -126,9 +126,6 @@ a.disabled {
   margin-top: 10px;
 }
 
-.weather-forecast-icon {
-  width: 35;
-}
 .weather-forecast-date {
   font-size: 16px;
 }
@@ -140,7 +137,7 @@ a.disabled {
 }
 
 .weather-forecast {
-  margin-top: 20px;
+  margin-top: 35px;
   text-align: center;
   color: #767171;
 }
