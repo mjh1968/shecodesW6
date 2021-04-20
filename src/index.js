@@ -124,5 +124,6 @@ let searchCity = document.querySelector("#formSearch");
 searchCity.addEventListener("submit", search);
 
 
-// let currentL=document.querySelector("#curent");
+ let currentL=document.querySelector("#curent");
+ getCurrentLocalWeather()
 // currentL.addEventListener("click",getCurrentLocalWeather);

@@ -7,6 +7,9 @@
   margin: 0 auto;
   margin-bottom: 10px;
 }
+.myShadow:focus-within {
+  border-color: rgb(118, 113, 113);
+}
 .btnSearch {
   display: inline-block;
   font-weight: 400;
