@@ -23,6 +23,38 @@ let hour = now.getHours();
 let data = document.querySelector("#dataDes");
 data.innerHTML = `${dayW}  ${hour}:${minutes}`;
 
+function displayForecast()
+{
+  let forecastElement=document.querySelector("#forecast");
+  let forecastContent="";
+  let days=["Thu","Fri","Sat","Sun","Mon"]
+  forecastContent=`<div class="row">`
+ days.forEach(function (day) {
+    forecastContent =
+      forecastContent +
+      `<div class="col-2">
+                <div class="weather-forecast-date">${day}</div>
+                <img
+                  src="http://openweathermap.org/img/wn/50d@2x.png"
+                  alt=""
+                  width="42"
+                />
+             <div class="weather-forecast-temp"> 
+                <span class="weather-forecast-temp-max">
+                20º
+              </span> 
+              <span class="weather-forecast-temp-min">
+                15º
+              </span> 
+            </div>
+          </div>
+     `;
+  });
+  forecastContent = forecastContent + `</div>`;
+  forecastElement.innerHTML = forecastContent;
+ }
+
+
 function search(event) {
   event.preventDefault();
   let cityName = document.querySelector("#cityS");
@@ -127,3 +159,4 @@ searchCity.addEventListener("submit", search);
  let currentL=document.querySelector("#curent");
 //  getCurrentLocalWeather()
 // currentL.addEventListener("click",getCurrentLocalWeather);
+displayForecast();
