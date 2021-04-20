@@ -125,5 +125,5 @@ searchCity.addEventListener("submit", search);
 
 
  let currentL=document.querySelector("#curent");
- getCurrentLocalWeather()
+//  getCurrentLocalWeather()
 // currentL.addEventListener("click",getCurrentLocalWeather);
