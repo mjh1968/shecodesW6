@@ -23,18 +23,25 @@ let hour = now.getHours();
 let data = document.querySelector("#dataDes");
 data.innerHTML = `${dayW}  ${hour}:${minutes}`;
 
+function getweekday(unixTime){
+  let a = new Date(unixTime*1000);
+  let days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let dayOfWeek = days[a.getDay()];
+  return(dayOfWeek);
+}
+
 function showForecast(response)
 {
-  console.log(response.data.daily)
+  console.log(response.data.daily);
+  let valueForecast=response.data.daily;
   let forecastElement=document.querySelector("#forecast");
   let forecastContent="";
-  let days=["Thu","Fri","Sat","Sun","Mon","Tue","Wed"]
   forecastContent=`<div class="row">`
-  days.forEach(function (day) {
+  valueForecast.forEach(function (valueForecastDay) {
     forecastContent =
       forecastContent +
       `<div class="col">
-                <div class="weather-forecast-date">${day}</div>
+                <div class="weather-forecast-date">${getweekday(valueForecastDay.dt)}</div>
                 <img
                   src="http://openweathermap.org/img/wn/50d@2x.png"
                   alt=""
