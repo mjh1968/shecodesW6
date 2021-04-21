@@ -27,12 +27,12 @@ function displayForecast()
 {
   let forecastElement=document.querySelector("#forecast");
   let forecastContent="";
-  let days=["Thu","Fri","Sat","Sun","Mon"]
+  let days=["Thu","Fri","Sat","Sun","Mon","Tue","Wed"]
   forecastContent=`<div class="row">`
  days.forEach(function (day) {
     forecastContent =
       forecastContent +
-      `<div class="col-2">
+      `<div class="col">
                 <div class="weather-forecast-date">${day}</div>
                 <img
                   src="http://openweathermap.org/img/wn/50d@2x.png"
@@ -68,12 +68,13 @@ function search(event) {
 
 
 function showWeather(response) {
+  console.log(response.data);
   let valueTemp = Math.round(response.data.main.temp);
   let valueWind =Math.round(response.data.wind.speed * 3.6);
   let valueHum = Math.round(response.data.main.humidity);
   let valueCity = (response.data.name);
   let valueDescription=response.data.weather[0].description;
-  // let valuerealFeel=Math.round((response.data.main.feels_like));
+  let valuerealFeel=Math.round((response.data.main.feels_like));
   let icon=document.querySelector("img.icon");
   icon.setAttribute(
     "src",
@@ -83,6 +84,8 @@ function showWeather(response) {
 
   let nameCity=document.querySelector("#cityS");
   nameCity.innerHTML=valueCity ;
+  let feelsLike=document.querySelector("#realFeel")
+  feelsLike.innerHTML="RealFeel: "+valuerealFeel+" ºC";
   let humidity=document.querySelector("#humidity")
   humidity.innerHTML="Humidity: "+ valueHum + " %";
   let wind=document.querySelector("#wind")
@@ -92,7 +95,7 @@ function showWeather(response) {
   let other=Math.round((response.data.main.feels_like));
   let tempDes=document.querySelector("#tempDes");
   tempDes.innerHTML=valueDescription;
-  // feelsLike.innerHTML="RealFeel: "+other+" ºC";
+  
   let cityInput = document.querySelector("#citySearch");
   cityInput.value=""
 }
