@@ -80,6 +80,7 @@ li {
 li:first-letter {
   text-transform: capitalize;
 }
+
 .datades {
   color: rgb(154, 154, 154);
 }

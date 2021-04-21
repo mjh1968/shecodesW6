@@ -92,8 +92,10 @@ function showWeather(response) {
   feelsLike.innerHTML="RealFeel: "+valuerealFeel+" ºC";
   let humidity=document.querySelector("#humidity")
   humidity.innerHTML="Humidity: "+ valueHum + " %";
-  let wind=document.querySelector("#wind")
-  wind.innerHTML="Wind: "+ valueWind + " Km/h";
+  let wind=document.querySelector("#valueWind");
+  wind.innerHTML=valueWind;
+  let metricsWind=document.querySelector("#valueWindMetrics")
+  metricsWind.innerHTML=" Km/h"
   let temp = document.querySelector("#temperature");
   temp.innerHTML = valueTemp ;
   let other=Math.round((response.data.main.feels_like));
@@ -179,8 +181,12 @@ function convert(event) {
   event.preventDefault();
  
   let displayT = document.querySelector("span#temperature.temp");
-  let displayW = document.querySelector("#wind");
- let displayRF = document.querySelector("#wind");
+  let displayW = document.querySelector("#valueWind");
+ let metricsWind=document.querySelector("#valueWindMetrics")
+ 
+ 
+  // let displayRF = document.querySelector("#wind");
+ 
   if (event.target.innerHTML === "ºC") { 
     document.getElementById("typeC").style.fontSize="20px";
     document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
@@ -191,7 +197,9 @@ function convert(event) {
     link=document.querySelector("a#typeF").classList
     link.remove("disabled")
     displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
-    displayW.innerHTML = Math.round((displayW.innerHTML * 0,621371192))+" mph";  
+    displayW.innerHTML = Math.round((displayW.innerHTML / 0.621371192));
+    metricsWind.innerHTML=" Km/h";
+
   } else {
     document.getElementById("typeF").style.fontSize="20px";
     document.getElementById("typeF").style.color = "rgb(92, 225, 230)";
@@ -202,7 +210,8 @@ function convert(event) {
     link=document.querySelector("a#typeC").classList
     link.remove("disabled")
     displayT.innerHTML = Math.round(displayT.innerHTML * 1.8 + 32);
-    displayW.innerHTML = Math.round((displayW.innerHTML / 0,621371192))+" Km/h";
+    displayW.innerHTML = Math.round((displayW.innerHTML * 0.621371192));
+    metricsWind.innerHTML=" mph";
   }
   convertForecast(event.target.innerHTML);
 }
@@ -214,4 +223,4 @@ elementC.addEventListener("click", convert);
 let searchCity = document.querySelector("#formSearch");
 searchCity.addEventListener("submit", search);
 let currentL=document.querySelector("#curent");
-getCurrentLocalWeather();
+// getCurrentLocalWeather();
