@@ -37,8 +37,12 @@ function showForecast(response)
   let forecastElement=document.querySelector("#forecast");
   let forecastContent="";
   forecastContent=`<div class="row">`
+  var classMax=0;
+
   valueForecast.forEach(function (valueForecastDay, index) {
     if (index>0){
+    classMax=`"weather-forecast-temp-max wftM${index}"`
+
     forecastContent =
       forecastContent +
       `<div class="col">
@@ -49,7 +53,8 @@ function showForecast(response)
                   width="42"
                 />
              <div class="weather-forecast-temp"> 
-                <span class="weather-forecast-temp-max">
+                <span class=${classMax}>
+                
                 ${Math.round(valueForecastDay.temp.max)}º
               </span> 
               <span class="weather-forecast-temp-min">
@@ -61,6 +66,7 @@ function showForecast(response)
   }});
   forecastContent = forecastContent + `</div>`;
   forecastElement.innerHTML = forecastContent;
+  console.log(forecastContent);
  }
 
 function getForecast(coordinates){
@@ -136,17 +142,19 @@ function convert(event) {
   event.preventDefault();
   let displayT = document.querySelector("span#temperature.temp");
   if (event.target.innerHTML === "ºC") {
-  console.log("1   "+displayT.innerHTML);
-  document.getElementById("typeC").style.fontSize="20px";
-  document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
-  document.getElementById("typeF").style.fontSize="12px";
-  document.getElementById("typeF").style.color = "rgb(113, 113, 113)";
-  link = document.getElementById('typeC');
-  link.setAttribute('class', 'disabled');
-  link=document.querySelector("a#typeF").classList
+    document.getElementById("typeC").style.fontSize="20px";
+    document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
+    document.getElementById("typeF").style.fontSize="12px";
+    document.getElementById("typeF").style.color = "rgb(113, 113, 113)";
+    link = document.getElementById('typeC');
+    link.setAttribute('class', 'disabled');
+    link=document.querySelector("a#typeF").classList
     link.remove("disabled")
-
-  displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
+    displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
+    var ntimes;
+    for (ntimes = 0; ntimes < 7; ntimes++) {
+      
+    };
   } else {
     console.log("2   "+displayT.innerHTML);
     document.getElementById("typeF").style.fontSize="20px";
@@ -173,6 +181,5 @@ let searchCity = document.querySelector("#formSearch");
 searchCity.addEventListener("submit", search);
 
 
- let currentL=document.querySelector("#curent");
-//  getCurrentLocalWeather()
-// currentL.addEventListener("click",getCurrentLocalWeather);
+let currentL=document.querySelector("#curent");
+getCurrentLocalWeather();
