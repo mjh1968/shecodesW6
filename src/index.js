@@ -32,17 +32,14 @@ function getweekday(unixTime){
 
 function showForecast(response)
 {
-  console.log(response.data.daily);
   let valueForecast=response.data.daily;
   let forecastElement=document.querySelector("#forecast");
   let forecastContent="";
   forecastContent=`<div class="row">`
-  var classMax=0;
-
+  var idMax=0;
   valueForecast.forEach(function (valueForecastDay, index) {
     if (index>0){
-    classMax=`"weather-forecast-temp-max wftM${index}"`
-
+    idMax=` id="wftM${index}"`;
     forecastContent =
       forecastContent +
       `<div class="col">
@@ -53,8 +50,7 @@ function showForecast(response)
                   width="42"
                 />
              <div class="weather-forecast-temp"> 
-                <span class=${classMax}>
-                
+                <span class="weather-forecast-temp-max"${idMax}>
                 ${Math.round(valueForecastDay.temp.max)}º
               </span> 
               <span class="weather-forecast-temp-min">
@@ -66,7 +62,6 @@ function showForecast(response)
   }});
   forecastContent = forecastContent + `</div>`;
   forecastElement.innerHTML = forecastContent;
-  console.log(forecastContent);
  }
 
 function getForecast(coordinates){
@@ -89,7 +84,6 @@ function showWeather(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   icon.setAttribute("alt", response.data.weather[0].description);
-
   let nameCity=document.querySelector("#cityS");
   nameCity.innerHTML=valueCity ;
   let feelsLike=document.querySelector("#realFeel")
@@ -103,10 +97,8 @@ function showWeather(response) {
   let other=Math.round((response.data.main.feels_like));
   let tempDes=document.querySelector("#tempDes");
   tempDes.innerHTML=valueDescription;
-  
   let cityInput = document.querySelector("#citySearch");
   cityInput.value=""
-
   let latlong=response.data.coord;
   getForecast(latlong);
 }
@@ -131,17 +123,34 @@ function search(event) {
 function showLocal(position) {
   let lat = position.coords.latitude;
   let long = position.coords.longitude;
-  console.log("Lat: " + lat + " Long: " + long);
   getLocalWeather(lat, long);
 }
 function getCurrentLocalWeather() {
   navigator.geolocation.getCurrentPosition(showLocal);
 }
 
+function convertForecast(type){
+  var ntimes;
+  var elementDayForecast;
+  var tempMax;
+  var tempMin;
+  if (type === "ºC") { 
+    for (ntimes = 1; ntimes < 7; ntimes++) {
+      elementDayForecast=`"\"span#wftM${ntimes}"\"`
+      tempMax=document.querySelector(`${elementDayForecast}`).innerHTML;
+      console.log(tempMax);
+    };
+
+  } else {
+
+  }
+
+}
+
 function convert(event) {
   event.preventDefault();
   let displayT = document.querySelector("span#temperature.temp");
-  if (event.target.innerHTML === "ºC") {
+  if (event.target.innerHTML === "ºC") { 
     document.getElementById("typeC").style.fontSize="20px";
     document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
     document.getElementById("typeF").style.fontSize="12px";
@@ -151,24 +160,19 @@ function convert(event) {
     link=document.querySelector("a#typeF").classList
     link.remove("disabled")
     displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
-    var ntimes;
-    for (ntimes = 0; ntimes < 7; ntimes++) {
-      
-    };
+    /////////CONVERT TEMPERATURE FORECAST
+    convertForecast(event.target.innerHTML)
+   /////////////////////////////////////
   } else {
-    console.log("2   "+displayT.innerHTML);
+   
     document.getElementById("typeF").style.fontSize="20px";
     document.getElementById("typeF").style.color = "rgb(92, 225, 230)";
     document.getElementById("typeC").style.fontSize="12px";
     document.getElementById("typeC").style.color = "rgb(113, 113, 113)";
-    
     link = document.getElementById('typeF');
     link.setAttribute('class', 'disabled'); 
-    
     link=document.querySelector("a#typeC").classList
     link.remove("disabled")
-
- 
     displayT.innerHTML = Math.round(displayT.innerHTML * 1.8 + 32);
   }
 }
@@ -179,7 +183,5 @@ let elementC = document.querySelector("#typeC");
 elementC.addEventListener("click", convert);
 let searchCity = document.querySelector("#formSearch");
 searchCity.addEventListener("submit", search);
-
-
 let currentL=document.querySelector("#curent");
 getCurrentLocalWeather();
