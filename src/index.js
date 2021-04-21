@@ -36,10 +36,12 @@ function showForecast(response)
   let forecastElement=document.querySelector("#forecast");
   let forecastContent="";
   forecastContent=`<div class="row">`
-  var idMax=0;
+  var idMax="";
+  var idMin="";
   valueForecast.forEach(function (valueForecastDay, index) {
     if (index>0){
     idMax=` id="wftM${index}"`;
+    idMin=` id="wftm${index}"`;
     forecastContent =
       forecastContent +
       `<div class="col">
@@ -53,7 +55,7 @@ function showForecast(response)
                 <span class="weather-forecast-temp-max"${idMax}>
                 ${Math.round(valueForecastDay.temp.max)}º
               </span> 
-              <span class="weather-forecast-temp-min">
+              <span class="weather-forecast-temp-min"${idMin}>
                 ${Math.round(valueForecastDay.temp.min)}º
               </span> 
             </div>
@@ -132,24 +134,53 @@ function getCurrentLocalWeather() {
 function convertForecast(type){
   var ntimes;
   var elementDayForecast;
-  var tempMax;
-  var tempMin;
+  var elementtemp;
+  var temp;
+  var tempConv;
+  
   if (type === "ºC") { 
-    for (ntimes = 1; ntimes < 7; ntimes++) {
-      elementDayForecast=`"\"span#wftM${ntimes}"\"`
-      tempMax=document.querySelector(`${elementDayForecast}`).innerHTML;
-      console.log(tempMax);
+    for (ntimes = 1; ntimes < 8; ntimes++) {
+      elementDayForecast="span#wftM"+ntimes;
+      elementtemp=document.querySelector(elementDayForecast);
+      temp=elementtemp.innerHTML
+      temp=temp.replace("º","");
+      tempConv = Math.round((temp - 32) / 1.8);
+      elementtemp.innerHTML=tempConv+"º";
+
+      elementDayForecast="span#wftm"+ntimes;
+      elementtemp=document.querySelector(elementDayForecast);
+      temp=elementtemp.innerHTML
+      temp=temp.replace("º","");
+      tempConv = Math.round((temp - 32) / 1.8);
+      elementtemp.innerHTML=tempConv+"º";
+
     };
 
   } else {
+    for (ntimes = 1; ntimes < 8; ntimes++) {
+      elementDayForecast="span#wftM"+ntimes;
+      elementtemp=document.querySelector(elementDayForecast);
+      temp=elementtemp.innerHTML
+      temp=temp.replace("º","");
+      tempConv = Math.round(temp * 1.8 + 32);
+      elementtemp.innerHTML=tempConv+"º";
 
+      elementDayForecast="span#wftm"+ntimes;
+      elementtemp=document.querySelector(elementDayForecast);
+      temp=elementtemp.innerHTML
+      temp=temp.replace("º","");
+      tempConv = Math.round(temp * 1.8 + 32);
+      elementtemp.innerHTML=tempConv+"º";
+    };
   }
-
 }
 
 function convert(event) {
   event.preventDefault();
+ 
   let displayT = document.querySelector("span#temperature.temp");
+  let displayW = document.querySelector("#wind");
+ let displayRF = document.querySelector("#wind");
   if (event.target.innerHTML === "ºC") { 
     document.getElementById("typeC").style.fontSize="20px";
     document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
@@ -160,11 +191,8 @@ function convert(event) {
     link=document.querySelector("a#typeF").classList
     link.remove("disabled")
     displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
-    /////////CONVERT TEMPERATURE FORECAST
-    convertForecast(event.target.innerHTML)
-   /////////////////////////////////////
+    displayW.innerHTML = Math.round((displayW.innerHTML * 0,621371192))+" mph";  
   } else {
-   
     document.getElementById("typeF").style.fontSize="20px";
     document.getElementById("typeF").style.color = "rgb(92, 225, 230)";
     document.getElementById("typeC").style.fontSize="12px";
@@ -174,7 +202,9 @@ function convert(event) {
     link=document.querySelector("a#typeC").classList
     link.remove("disabled")
     displayT.innerHTML = Math.round(displayT.innerHTML * 1.8 + 32);
+    displayW.innerHTML = Math.round((displayW.innerHTML / 0,621371192))+" Km/h";
   }
+  convertForecast(event.target.innerHTML);
 }
 
 let elementF = document.querySelector("#typeF");
