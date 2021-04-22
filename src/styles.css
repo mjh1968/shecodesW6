@@ -139,14 +139,17 @@ a.disabled {
 
 .weather-forecast {
   margin-top: 35px;
+  margin-left: -10px;
+  margin-right: -10px;
   text-align: center;
   color: #767171;
 }
 
 .appW {
-  max-width: 550px;
+  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  background-color: rgb(253, 253, 253);
   border: 1px solid;
   border-width: 1px;
   border-style: outset;

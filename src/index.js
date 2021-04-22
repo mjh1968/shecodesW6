@@ -44,7 +44,7 @@ function showForecast(response)
     idMin=` id="wftm${index}"`;
     forecastContent =
       forecastContent +
-      `<div class="col">
+      `<div class="col colForecast">
                 <div class="weather-forecast-date">${getweekday(valueForecastDay.dt)}</div>
                 <img
                    src="http://openweathermap.org/img/wn/${valueForecastDay.weather[0].icon}@2x.png"
@@ -113,16 +113,7 @@ function getLocalWeather(param1, param2) {
   axios.get(url).then(showWeather);
 }
 
-function search(event) {
-  event.preventDefault();
-  let cityName = document.querySelector("#cityS");
-  let cityInput = document.querySelector("#citySearch");
-  let city = cityInput.value;
-  cityName.innerHTML=city;
-  let apikey = "1c74a2370abc5bae9c5f1859677931c0";
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
-  axios.get(url).then(showWeather);
-}
+
 
 function showLocal(position) {
   let lat = position.coords.latitude;
@@ -183,7 +174,8 @@ function convert(event) {
   let displayT = document.querySelector("span#temperature.temp");
   let displayW = document.querySelector("#valueWind");
   let metricsWind=document.querySelector("#valueWindMetrics")
- 
+  let displayRF=document.querySelector("#realFeel");
+
   if (event.target.innerHTML === "ºC") { 
     document.getElementById("typeC").style.fontSize="25px";
     document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
@@ -195,6 +187,9 @@ function convert(event) {
     link.remove("disabled")
     displayT.innerHTML = Math.round((displayT.innerHTML - 32) / 1.8);  
     displayW.innerHTML = Math.round((displayW.innerHTML / 0.621371192));
+    displayRF.innerHTML=displayRF.innerHTML.replace("ºF","");
+    displayRF.innerHTML=displayRF.innerHTML.replace("RealFeel:","");
+    displayRF.innerHTML="RealFeel: "+ Math.round((displayRF.innerHTML - 32) / 1.8)+" ºC";  
     metricsWind.innerHTML=" Km/h";
 
   } else {
@@ -208,9 +203,30 @@ function convert(event) {
     link.remove("disabled")
     displayT.innerHTML = Math.round(displayT.innerHTML * 1.8 + 32);
     displayW.innerHTML = Math.round((displayW.innerHTML * 0.621371192));
+    displayRF.innerHTML=displayRF.innerHTML.replace("ºC","");
+    displayRF.innerHTML=displayRF.innerHTML.replace("RealFeel:","");
+    displayRF.innerHTML  ="RealFeel: "+ Math.round(displayRF.innerHTML * 1.8 + 32)+" ºF";
     metricsWind.innerHTML=" mph";
   }
   convertForecast(event.target.innerHTML);
+}
+
+function search(city) {
+   
+  let cityName = document.querySelector("#cityS");
+  // let cityInput = document.querySelector("#citySearch");
+  // let city = cityInput.value;
+  cityName.innerHTML=city;
+  let apikey = "1c74a2370abc5bae9c5f1859677931c0";
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
+  axios.get(url).then(showWeather);
+}
+
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#citySearch");
+  search(cityInput.value);
 }
 
 let elementF = document.querySelector("#typeF");
@@ -218,6 +234,9 @@ elementF.addEventListener("click", convert);
 let elementC = document.querySelector("#typeC");
 elementC.addEventListener("click", convert);
 let searchCity = document.querySelector("#formSearch");
-searchCity.addEventListener("submit", search);
-let currentL=document.querySelector("#curent");
-// getCurrentLocalWeather();
+searchCity.addEventListener("submit", handleSubmit);
+
+search("Lisbon");
+
+
+
