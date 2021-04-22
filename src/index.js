@@ -48,7 +48,7 @@ function showForecast(response)
                 <div class="weather-forecast-date">${getweekday(valueForecastDay.dt)}</div>
                 <img
                    src="http://openweathermap.org/img/wn/${valueForecastDay.weather[0].icon}@2x.png"
-                  alt=${valueForecastDay.weather[0].description}
+                  alt=" ${valueForecastDay.weather[0].description} "
                   width="42"
                 />
              <div class="weather-forecast-temp"> 
@@ -182,13 +182,10 @@ function convert(event) {
  
   let displayT = document.querySelector("span#temperature.temp");
   let displayW = document.querySelector("#valueWind");
- let metricsWind=document.querySelector("#valueWindMetrics")
- 
- 
-  // let displayRF = document.querySelector("#wind");
+  let metricsWind=document.querySelector("#valueWindMetrics")
  
   if (event.target.innerHTML === "ºC") { 
-    document.getElementById("typeC").style.fontSize="20px";
+    document.getElementById("typeC").style.fontSize="25px";
     document.getElementById("typeC").style.color = "rgb(92, 225, 230)";
     document.getElementById("typeF").style.fontSize="12px";
     document.getElementById("typeF").style.color = "rgb(113, 113, 113)";
@@ -201,7 +198,7 @@ function convert(event) {
     metricsWind.innerHTML=" Km/h";
 
   } else {
-    document.getElementById("typeF").style.fontSize="20px";
+    document.getElementById("typeF").style.fontSize="25px";
     document.getElementById("typeF").style.color = "rgb(92, 225, 230)";
     document.getElementById("typeC").style.fontSize="12px";
     document.getElementById("typeC").style.color = "rgb(113, 113, 113)";
